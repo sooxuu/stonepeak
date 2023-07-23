@@ -1,10 +1,14 @@
 import './App.css';
-import PlaceList from './components/placeList';
+import PlaceList from './components/PlaceList';
 
 function App() {
   return (
     <div className="App">
-      <h2>gd</h2>
+      <header>
+        <h1>
+          <img src="img/logo.png" />
+        </h1>
+      </header>
       <PlaceList />
     </div>
   );
