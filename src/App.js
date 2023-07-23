@@ -1,5 +1,5 @@
 import './App.css';
-import PlaceList from './components/PlaceList';
+import PlaceList from './components/placeList';
 
 function App() {
   return (
