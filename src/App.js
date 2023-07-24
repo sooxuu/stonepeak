@@ -1,5 +1,6 @@
 import './App.css';
 import PlaceList from './components/PlaceList';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
