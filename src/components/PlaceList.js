@@ -2,17 +2,29 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Pagination from "./Pagination";
 
-const PlaceList = (page = 1) => {
+const PlaceList = () => {
+    // const history = useHistory();
     const [places, setPlace] = useState([]);
-    const getPlace = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [numberOfPlaces, setNumberOfPlaces] = useState(0);
+    const [numberOfPages, setNumberOfPages] = useState(0);
+    const limit = 8;
+
+    useEffect(() => {
+        setNumberOfPages(Math.ceil(numberOfPlaces/limit));
+    }, [numberOfPlaces]);
+
+    const getPlace = (page = 1) => {
+        setCurrentPage(page);
         axios.get('https://jsonplaceholder.typicode.com/posts', {
             params: {
                 _page : page,
-                _limit : 10,
+                _limit : limit,
                 _sort: "title",
                 _order: "asc"
             }
         }).then((res) => {
+            setNumberOfPlaces(res.headers['x-total-count']);
             setPlace(res.data);
         });
     };
@@ -28,7 +40,7 @@ const PlaceList = (page = 1) => {
                 <p className="place-addres">{place.body}</p>
             </div>
         ))}
-        <Pagination currentPage={2} numberOfPages={5}/>
+        {numberOfPages > 1 && <Pagination currentPage={currentPage} numberOfPages={numberOfPages} onClick={getPlace} />}
         </div>
     );
 }
